@@ -15,7 +15,7 @@ constructor(props){
         sort:'',
         display:false
     }
-    this.applyingData = this.applyingData.bind(this);
+   
 }
   
      componentDidMount(){
@@ -80,7 +80,7 @@ constructor(props){
     applyingData=async()=>{
         const {mealId}=this.props;
         const {valueArray,locationId,sort,lowCost,highCost}=this.state
-        let url = `https://restaurantdatafetch.onrender.com/filter/${mealId}?page=1&itemsPerPage=2&`;
+        let url = `https://restaurantdatafetch.onrender.com/filter/${mealId}?`;
 
      if (valueArray && valueArray.length) {
       url += `cuisine_id=${valueArray.join(',')}&`;
@@ -98,24 +98,10 @@ constructor(props){
        url += `lcost=${lowCost}&hcost=${highCost}`;
       }
      
-      try {
-        
-          if (url.endsWith('?')) {
-            url += `itemsPerPage=2`;
-          } else {
-            url += `&itemsPerPage=2`;
-          }
-        
-        console.log(url)
-        const response = await axios.get(url);
-        this.sendResponseDataToParent(response.data)
-        console.log(response.data)
-        
-        
-      } catch (error) {
-        console.error(error);
-        
-      }
+   
+    
+        this.sendResponseDataToParent(url)
+       
     }
     displayCard=()=>{
       this.setState(prevState=>{

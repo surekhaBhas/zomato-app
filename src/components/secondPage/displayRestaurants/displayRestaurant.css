@@ -73,3 +73,19 @@ a{
     align-items:center;
     justify-content: center;
 }
+.page-link{
+    color:#192F60;
+    border:2px solid #636F88;
+    padding:10px 20px;
+    font-size:20px;
+}
+.pagination{
+    list-style-type:none;
+    padding-left:0;
+    display:flex;
+    justify-content:center;
+    margin:auto;
+}
+.active{
+    background-color: #eee;
+}

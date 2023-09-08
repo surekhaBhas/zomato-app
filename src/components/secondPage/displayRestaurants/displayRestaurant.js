@@ -2,10 +2,22 @@ import React from 'react'
 import './displayRestaurant.css';
 import { Link } from 'react-router-dom';
 
-function displayRestaurant(props) {
-    const {responseData}=props
- const response=  responseData.data
+function DisplayRestaurant(props) {
+    const {responseData,onChangePage,totalPages,page}=props
+    const response=  responseData.data
+     
+    const pageNumbers = [];
+
+  for (let i = 1; i <= totalPages; i++) {
+    pageNumbers.push(i);
+  }
+  
+ const onPageChangeNumber=(number)=>{
+    onChangePage(number)
+  }
+  
   return (
+    <div>
     <ul className='display-container'>
       {response.length?(response.map(restaurant=>{
         return <Link to={`/details/${restaurant.restaurant_id}`} key={restaurant._id}><li  className='restaurant-card'>
@@ -29,9 +41,23 @@ function displayRestaurant(props) {
             </div>
         </li></Link>
       })):<li className='not-found'><div>Sorry, No Restaurant Found</div></li>}
-      
     </ul>
+    <nav>
+      <ul className="pagination">
+        {pageNumbers.map((number) => (
+          <li
+            key={number}
+            
+          >
+            <button onClick={() => onPageChangeNumber(number)} className={page === number ? 'page-link active' : 'page-link'}>
+              {number}
+            </button>
+          </li>
+        ))}
+      </ul>
+    </nav>
+    </div>
   )
 }
 
-export default displayRestaurant
+export default DisplayRestaurant
