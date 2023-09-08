@@ -20,7 +20,7 @@ function SecondPage() {
     const stateName=stateArray[cityId-1]
     
     useEffect(()=>{
-      axios.get(`https://restaurantdatafetch.onrender.com/filter/${mealId}`)
+      axios.get(`https://restaurantdatafetch.onrender.com/filter/${mealId}?itemsPerPage=2`)
       .then(res=>{setResponseData(res.data)
         setLoading(false)
       })

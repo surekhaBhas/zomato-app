@@ -4,9 +4,10 @@ import { Link } from 'react-router-dom';
 
 function displayRestaurant(props) {
     const {responseData}=props
+ const response=  responseData.data
   return (
     <ul className='display-container'>
-      {responseData.length?(responseData.map(restaurant=>{
+      {response.length?(response.map(restaurant=>{
         return <Link to={`/details/${restaurant.restaurant_id}`} key={restaurant._id}><li  className='restaurant-card'>
             <div className='name-container'>
               <img src={restaurant.thumb} alt={restaurant.name}/>
