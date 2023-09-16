@@ -81,11 +81,13 @@ function DisplayOrder() {
       console.log(err)
     }
    }
-  
+  const goBack=()=>{
+    navigate(-1)
+  }
   return (
     <div className='bg-container'>
       <div className='orders-card'>
-        <button className='close'><AiOutlineClose/></button>
+        <button className='close' onClick={goBack}><AiOutlineClose/></button>
       <h1>{restaurantName}</h1>
       <h2>Ordered Items</h2>
          <ul className='ordersContainer'>
