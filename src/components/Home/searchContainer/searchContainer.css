@@ -138,8 +138,10 @@
   }
   .restaurant-container{
     display:flex;
+    flex-direction:row;
     align-items:center;
     gap:10px;
+    margin-bottom:1px solid gray;
   }
   .restaurant-container img{
     width:40px;

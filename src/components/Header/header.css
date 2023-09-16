@@ -39,6 +39,9 @@ header .logo{
     border-radius:5px;
     border:1px solid white;
 }
+.account a{
+    color:white;
+}
 .login{
     border:none;
     margin-right:5px;

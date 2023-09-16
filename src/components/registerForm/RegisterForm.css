@@ -1,0 +1,45 @@
+.registerForm{
+    width:50vw;
+    position:absolute;
+    top:20%;
+    left:20%;
+    background-color: white;
+    padding:20px;
+}
+.input-box label{
+    display:block;
+    color:#3B5998;
+    font-weight:600;
+    margin-bottom:10px;
+}
+.input-box input{
+    padding:10px;
+    width:90%;
+    outline:none;
+    border:1px solid #8C96AB;
+    margin-bottom:20px;
+}
+.input-box input::placeholder{
+  color:#8C96AB;
+}
+.sign-up{
+    color:#192F60;
+}
+.submit{
+    color:white;
+    background-color: #192F60;
+    margin-bottom:10px;
+    font-weight:600;
+    font-size:18px;
+}
+.link-para{
+    color:#3B5998;
+}
+.link{
+    color:#EB2929;
+    font-weight:600;
+}
+.errMsg{
+    color:#EB2929;
+    text-align:center;
+}

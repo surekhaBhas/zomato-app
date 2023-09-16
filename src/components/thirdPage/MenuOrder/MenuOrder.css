@@ -1,0 +1,106 @@
+.menu-container{
+    width:60vw;
+    padding:20px;
+    background-color: white;
+    position:absolute;
+    top:10%;
+    left:20%;
+    height:80vh;
+    overflow-y: auto;
+}
+
+.menu-container h1{
+    color:#192F60;
+    font-weight:600;
+}
+.menuList{
+    list-style-type:none;
+    padding-left:0;
+    width:90%;
+    margin:auto;
+    margin-bottom:20px;   
+}
+.menuList li{
+    width:80%;
+    display:flex;
+    padding:10px;
+    border-bottom:1px solid #696B78 ;
+    align-items:center;
+}
+.logoCreation{
+     border:2px solid #048002;
+    padding:5px;
+    width:15px;
+    height:15px;
+    position:relative;
+}
+.dot{
+    position:absolute;
+    background-color: #048002;
+    width:8px;
+    height:8px;
+    border-radius:50%;
+    top:15%;
+    left:15%;
+}
+.menu-details{
+    width:70%
+}
+.menu-details h3{
+    width:100%;
+    color:#292C40;
+    font-weight:600;
+    font-size:15px;
+}
+.menu-details p{
+    width:100%;
+    color:#696B78;
+    font-size:9px;
+}
+.menu-image{
+    width:40%;
+    position:relative
+}
+.menu-image img{
+    width:100%;
+    height:auto;
+}
+.adding{
+    background-color: #048002;
+    position:absolute;
+    bottom:0%;
+    height:auto;
+    width:80%;
+    left:10%;
+    display:flex;
+    justify-content:center;
+    padding:5px;
+
+}
+.adding button{
+   color:white; 
+   border:none;
+   padding:0px;
+   width:30%;
+   margin:0;
+}
+.bill{
+    background-color: #F5F8FF;
+    display:flex;
+    bottom:0;
+    width:100%;
+    padding:5px;
+    justify-content:space-between;
+    align-items:center;
+}
+.pay{
+    background-color: #CE0505;
+    color:white;
+    width:30%;
+   
+}
+.pay button{
+    width:50%;
+    border:none;
+    margin-left:auto;
+}

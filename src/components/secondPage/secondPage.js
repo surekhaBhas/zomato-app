@@ -3,12 +3,16 @@ import Header from '../Header/header'
 import { useParams } from 'react-router-dom'
 import { CityContext } from '../context/cityContext'
 import { useContext ,useState,useEffect} from 'react'
+import { useNavigate,useLocation } from 'react-router-dom'
 import Filter from './filter/filter';
-import axios from 'axios';
+import axios from '../../Api/axios'
 import DisplayRestaurant from './displayRestaurants/displayRestaurant'
-import './secondPage.css'
+import './secondPage.css';
+
 
 function SecondPage() {
+    const navigate=useNavigate();
+    const location=useLocation
     const {cityId}=useContext(CityContext)
     const params=useParams()
     const mealId=params.mealId
@@ -20,10 +24,12 @@ function SecondPage() {
     const stateName=stateArray[cityId-1] 
     const [page,setPage]=useState(1);
     const [totalPages,setTotalPages]=useState()
-    const [url,setUrl]=useState(`https://restaurantdatafetch.onrender.com/filter/${mealId}?`)
+    const [url,setUrl]=useState(`/filter/${mealId}?`)
+   
     
     useEffect(()=>{
-      axios.get(`https://restaurantdatafetch.onrender.com/filter/${mealId}?itemsPerPage=2`)
+      
+      axios.get(`/filter/${mealId}?itemsPerPage=2`)
       .then(res=>{setResponseData(res.data)
         setLoading(false)
         setTotalPages(res.data.totalPages)
@@ -31,12 +37,16 @@ function SecondPage() {
       })
       .catch(error => {
         console.error("Error fetching data:", error);
+           navigate('/login', { state: { from: location }, replace: true
+           })
+        
       setLoading(false);
       })
     },[])
   
     
   const onResponseDataReceived = (url) => {
+    
      setUrl(url)
      axios.get(`${url}&itemsPerPage=2`)
     .then(res=>{setResponseData(res.data)
@@ -45,11 +55,13 @@ function SecondPage() {
   };
 
   const changePage=(number)=>{
+   
     setPage(number)
     axios.get(`${url}page=${number}&itemsPerPage=2`)
     .then(res=>{setResponseData(res.data)
     setTotalPages(res.data.totalPages)
     setPage(res.data.currentPage)})
+    
   }
   
   return (
@@ -57,8 +69,8 @@ function SecondPage() {
         <Header/>
         <h2 style={{color:'#192F60',marginTop:"10px"}}>{mealType} places in {stateName}</h2>
         <div className='filter-display'>
-          <div className='filter'> <Filter cityId={cityId} mealId={mealId} onResponseDataReceived={onResponseDataReceived} /></div>
-          {!loading &&<div className='display'> <DisplayRestaurant responseData={responseData} onChangePage={changePage} totalPages={totalPages} page={page}/> </div>}
+          <div className='filter'> <Filter cityId={cityId} mealId={mealId} ResponseDataReceived={onResponseDataReceived} /></div>
+          {!loading &&<div className='display'> <DisplayRestaurant  responseData={responseData} onChangePage={changePage} totalPages={totalPages} page={page}/> </div>}
           
         {loading && <div style={{color:'#192F60',height:'50vh',display:'flex',alignItems:'center',justifyContent:'center'}}><h1>Loading...</h1></div>}
       

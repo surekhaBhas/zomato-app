@@ -1,0 +1,156 @@
+.bg-container{
+   
+    height:100vh;
+    width:100vw;
+    background-color: rgba(0, 0, 0, 0.5);
+    position:relative;
+    top:0;
+    bottom:0;
+    left:0;
+    right:0;
+    
+}
+.payment-container{
+    width:70vw;
+    background-color: white;
+    margin:auto;
+    box-shadow: 0 4px 6px rgba(0,0,0,0.4);
+    padding:30px 20px;
+    position:absolute;
+    top:15%;
+    left:20%;
+}
+@media screen and (min-width:768px){
+    .payment-container{
+        width:60vw;
+    }
+}
+
+.close{
+    float:right;
+    padding:0;
+    margin:0;
+}
+.close:first-child{
+    color:#192F60;
+    font-size:23px;
+    
+}
+.payment-card{
+    margin-top:20px;
+    display:flex;
+}
+.method-container{
+    background-color:#D2D9E6;
+    color:#636F88;
+    width:35%;
+    padding-left:10px;
+    padding-top:10px;
+    padding-bottom:10px;
+    list-style-type:none;
+
+}
+.selected{
+    color:gray;
+    background-color:white;
+    
+}
+
+.button{
+    background-color: transparent;
+    color:#636F88;
+    border-color:transparent;
+    font-size:14px;
+    padding-top:10px;
+    padding-left:10px;
+    text-align:left;
+    display:flex;
+    align-items:center;
+   column-gap:6px;
+   width:100%;
+}
+.card-details{
+    padding:10px;
+}
+.card-box{
+    display:flex;
+    align-items:center;
+}
+
+.add{
+    color:#565555;
+    font-weight:600;
+}
+.accept{
+    display:flex;
+    column-gap:10px;
+    
+    margin:15px 0;
+}
+.accept>p{
+    color:#636F88;
+    font-size:12px;
+}
+.detailsOfCard{
+    display:flex;
+    flex-direction:column;
+    border:1px solid #636F88;
+    width:100%;
+    margin:20px 0;
+}
+.detailsOfCard input{
+    outline:none;
+    padding:15px;
+    border:none;
+    border:1px solid #00000029;
+}
+.detailsOfCard input::placeholder{
+    color:#bbb;
+    font-size:12px;
+}
+.valid{
+    display:flex;
+    width:100%;
+    justify-content: space-between;
+}
+.month{
+    width:70%;
+    border:1px solid #636F88;
+}
+.cvv{
+    width:30%;
+    border:1px solid #636F88;
+}
+.input{
+    width:100%;
+}
+#conditions{
+    accent-color: #CE0505;
+    color:white;
+    border:1px solid#CE0505 ;
+    width:15px;
+    height:15px;
+    outline: none;
+}
+.conditions{
+    display:flex;
+    align-items:center;
+    column-gap:10px;
+    margin:10px 0;
+}
+
+.conditions>label{
+    font-size:10px;
+    color:#636F88;
+}
+.pay{
+    width:100%;
+    background-color:#CE0505;
+    color:white;
+    font-weight:700;
+    margin:10px 0;
+}
+.description{
+    font-size:9px;
+    color:#999fad;
+}

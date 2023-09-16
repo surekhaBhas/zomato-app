@@ -1,0 +1,13 @@
+.persistCheck{
+    display:flex;
+    align-items:center;
+}
+.persistCheck input[type=checkbox]{
+    width:15px;
+    height:15px;
+    accent-color: #3B5998;
+    margin-right:10px;
+}
+.persistCheck label{
+    color:#3B5998;
+}

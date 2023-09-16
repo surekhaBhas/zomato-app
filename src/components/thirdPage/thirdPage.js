@@ -2,18 +2,19 @@ import React from 'react'
 import Header from '../Header/header'
 import { useParams} from 'react-router-dom';
 import { useEffect ,useState} from 'react';
-import axios from 'axios'
-import './thirdPage.css'
+import axios from '../../Api/axios'
+import './thirdPage.css';
+import { Link } from 'react-router-dom';
 
 function ThirdPage() {
     const params=useParams()
-    const restautantId=params.restaurantId
+    const restaurantId=params.restaurantId
     const [data,setData]=useState([])
     const [overView,setOverView]=useState(true)
     const [loading,setLoading]=useState(true);
     
     useEffect(()=>{
-      axios.get(`https://restaurantdatafetch.onrender.com/details/restaurant/${restautantId}`)
+      axios.get(`/details/restaurant/${restaurantId}`)
       .then(res=>{setData(res.data)
         setLoading(false)
       })
@@ -32,8 +33,8 @@ function ThirdPage() {
         <Header/>
         {!loading && <div className='details-container'>
           
-          {
-           data.length?<div className='restaurant-container'>
+      
+           {data.length?<div className='restaurant-container'>
              <div className='fig-container'>
            <img src={data[0].thumb} alt={data[0].name}/>
               <h2>{data[0].name}</h2>
@@ -43,7 +44,7 @@ function ThirdPage() {
              <button onClick={toggleController} className={overView?'active tabs':'inActive tabs'}>Overview</button>
              <button onClick={toggleController} className={!overView?'active tabs':'inActive tabs'}>Contact</button>
              </div>
-             <button className='placeOrder' >Place Online Order</button>
+              <Link to={`/menus/${restaurantId}?restaurantName=${data[0].name}`}><button className='placeOrder' >Place Online Order</button></Link>
            </div>
            <div>
              {overView &&(<div>

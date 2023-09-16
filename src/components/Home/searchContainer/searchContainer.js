@@ -1,65 +1,85 @@
-import React, { Component } from 'react'
+import axios from '../../../Api/axios'
 import './searchContainer.css';
 import { CityContext } from '../../context/cityContext';
-import axios from 'axios';
-const locationURL='https://restaurantdatafetch.onrender.com/cities'
-const restaurantUrl="https://restaurantdatafetch.onrender.com/restaurant"
+import {useState,useEffect,useContext} from 'react'
+import { useNavigate,useLocation,Link } from 'react-router-dom';
+import AuthContext from '../../context/AuthContext';
+import useLogout from '../../../hooks/useLogout';
+const locationURL='/cities'
+const restaurantUrl="/restaurant";
 
-export class SearchContainer extends Component {
-  static contextType = CityContext; 
-  constructor(){
-    super()
-    this.state={
-      cityId:'',
-      locationData:[],
-      restaurantData:[],
-      restaurantName:'',
-      focusItem:false
-    }
-  }
-  componentDidMount(){
-   axios.get(locationURL)
-    .then(res=>this.setState({locationData:res.data}))
-  }
- 
+function SearchContainer() {
+  const logout=useLogout()
+  const {auth}=useContext(AuthContext)
+  const navigate = useNavigate();
+  const location = useLocation();
+  const [cityId,setCity_Id]=useState('');
+  const [locationData,setLocationData]=useState([]);
+  const [restaurantData,setRestaurantData]=useState([]);
+  const [focusItem,setFocusItem]=useState(false);
+  const [rstName,setRstName]=useState('')
 
-  changeCityName=async(e)=>{
-    const {setCityId}=this.context
-     await this.setState({cityId:e.target.value})
-     await setCityId(this.state.cityId)
-     await axios.get(`${restaurantUrl}?city_id=${this.state.cityId}`)
-     .then(res=>this.setState({restaurantData:res.data}))
-     
-  }
+  const {setCityId}=useContext(CityContext)
 
-  filterRestaurantData=()=>{
-    return this.state.restaurantData.filter(restaurant=>{  
-      const rstName=this.state.restaurantName.toLowerCase()
-      const name=restaurant.name.toLowerCase()
-        return restaurant.city===this.state.cityId && name.includes(rstName)
+  useEffect(() => {
+     axios.get(locationURL)
+      .then((res) => {
+     setLocationData(res.data)
+      })
+      .catch((error) => {
+        navigate('/login', { state: { from: location }, replace: true });
+         console.log(error)
+      });
+  }, []);
+
+
+
+  const changeCityName=async(e)=>{
+
+    setCity_Id(e.target.value)
+    setCityId(e.target.value)
+    axios.get(`${restaurantUrl}?city_id=${e.target.value}`)
+    .then(res=>{
+     setRestaurantData(res.data)  
     })
-  }
+    .catch((error)=>{
+      navigate('/login', { state: { from: location }, replace: true });
+        console.log(error)
+      }
+    )
+    
+  
+ }
+ const searchChangeHandler=(e)=>{
+  setRstName(e.target.value)
 
-  searchChangeHandler=async(e)=>{
-     this.setState({restaurantName:e.target.value})
-   
-  }
-  valueChangeByFocus=()=>{
-    this.setState({focusItem:true})
-  }
-  valueChangeByBlur=()=>{
-    this.setState({focusItem:false})
-  }
-  render() {
-    const {locationData,restaurantName,focusItem}=this.state
-    const filteredRestaurantData=this.filterRestaurantData()
-    return (
-      <div className='searchContainer container-fluid'>
+}
+const filterRestaurantData=()=>{
+  return restaurantData.filter(restaurant=>{  
+    const restName=rstName.toLowerCase()
+    const name=restaurant.name.toLowerCase()
+      return restaurant.city===cityId && name.includes(restName)
+  })
+}
+ const valueChangeByFocus=()=>{
+  setFocusItem(true)
+}
+const valueChangeByBlur=()=>{
+  setFocusItem(false)
+}
+const signOut=async()=>{
+  await logout()
+  navigate('/login')
+}
+const filteredData=filterRestaurantData()
+  return (
+
+    <div className='searchContainer container-fluid'>
          <header>
         <span className='zomato'> Zomato</span>
         <div>
-        <button className='login'>Login</button>
-        <button>Create an account</button>
+        {auth.username?'':<Link to='/login'><button className='login'>Login</button></Link>}
+        {auth.username?<button onClick={signOut}>Logout</button>:<Link to='/register'><button>Create an account</button></Link>}
         </div>
       
     </header>
@@ -68,7 +88,7 @@ export class SearchContainer extends Component {
          <div className='input-container'>
            <div className='selectContainer'>
             <select
-               onChange={this.changeCityName}
+               onChange={changeCityName}
                 >
                   <option>Please type a location</option>
             {locationData.length?
@@ -79,33 +99,35 @@ export class SearchContainer extends Component {
            
            </select>
            </div> 
-
-
-
             <div className='searchInput'>
               <input type='text' 
               placeholder="&#x1F50D;  Search for restaurants" 
-              onChange={this.searchChangeHandler}
-              onFocus={this.valueChangeByFocus}
-              onBlur={this.valueChangeByBlur}
-              value={restaurantName}
+              onChange={searchChangeHandler}
+              onFocus={valueChangeByFocus}
+              onBlur={valueChangeByBlur}
+              value={rstName}
               />
               {focusItem &&<ul className='listData'>
-                {filteredRestaurantData.length?filteredRestaurantData.map(restaurant=><li key={restaurant.name} className='restaurant-container'>
+                {filteredData.length?filteredData.map(restaurant=><li key={restaurant.name} className='restaurant-container'>
                   <img src={restaurant.thumb} alt={restaurant.name} />
                   <div>
                     <h5>{restaurant.name}</h5>
                     <p>{restaurant.locality}</p>
                   </div>
                 </li>
-               
+          
                 ):<li>Restaurant Not Found</li> }
                 </ul>}
               </div>
          </div>
       </div>
-    )
-  }
+  )
 }
 
 export default SearchContainer
+    
+
+
+ 
+
+ 

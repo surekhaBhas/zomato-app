@@ -1,7 +1,8 @@
 import React, { Component } from 'react'
-import axios from 'axios';
+import axios from '../../../Api/axios';
 import './filter.css';
 import {AiOutlineDown} from 'react-icons/ai'
+
 
 export class Filter extends Component {
 constructor(props){
@@ -21,10 +22,10 @@ constructor(props){
      componentDidMount(){
         const {cityId}=this.props
         if(cityId){
-            axios.get(`https://restaurantdatafetch.onrender.com/locations?city_id=${cityId}`)
+            axios.get(`/locations?city_id=${cityId}`)
          .then(res=>{this.setState({locationsData:res.data})})
         }else{
-       axios.get('https://restaurantdatafetch.onrender.com/locations')
+       axios.get('/locations')
        .then(res=>{this.setState({locationsData:res.data})})
         }
      } 
@@ -80,7 +81,7 @@ constructor(props){
     applyingData=async()=>{
         const {mealId}=this.props;
         const {valueArray,locationId,sort,lowCost,highCost}=this.state
-        let url = `https://restaurantdatafetch.onrender.com/filter/${mealId}?`;
+        let url = `/filter/${mealId}?`;
 
      if (valueArray && valueArray.length) {
       url += `cuisine_id=${valueArray.join(',')}&`;
