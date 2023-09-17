@@ -8,6 +8,7 @@ import './DisplayOrder.css';
 import {AiOutlineClose} from 'react-icons/ai'
 
 function DisplayOrder() {
+  
   const location=useLocation();
   const navigate=useNavigate()
   const searchParams = new URLSearchParams(location.search);
@@ -20,13 +21,14 @@ function DisplayOrder() {
    const [menuOrderData,setMenuOrderData]=useState([])
    const [inDetailMenu,setInDetailMenu]=useState();
    const [price,setPrice]=useState(searchParams.get('cost'))
-   
+   const [loading,setLoading]=useState(true)
    useEffect(()=>{
       
       const getOrderDetails=async()=>{
         try{
           const response=await axiosPrivate.get(`/orders/${orderId}`)
           console.log(response.data)
+          setLoading(false)
           setMenuItems(response.data.menu_item)
          }catch(err){
           console.log(err)
@@ -91,7 +93,7 @@ function DisplayOrder() {
       <h1>{restaurantName}</h1>
       <h2>Ordered Items</h2>
          <ul className='ordersContainer'>
-          {
+          {!loading &&
             menuOrderData.length?menuOrderData.map(order=>{
               return<li key={order._id} className='order'>
                 <h3>{order.menu_name}</h3>
@@ -111,6 +113,7 @@ function DisplayOrder() {
             }):<li className='order'>No Orders</li>
           }
          </ul>
+         {loading && <div>Loading</div>}
          {menuOrderData.length?<div className='bill' style={{marginTop:'auto'}}>
           <h1>Subtotal   </h1> 
           <h1>{price}</h1>
