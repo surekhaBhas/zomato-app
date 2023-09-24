@@ -5,7 +5,7 @@ import HomePage from './components/Home/HomePage';
 import SecondPage from './components/secondPage/secondPage';
 import ThirdPage from './components/thirdPage/thirdPage';
 import DetailsForm from './components/thirdPage/detailsForm/DetailsForm';
-import PaymentMethod from './components/thirdPage/paymentMethod/paymentMethod';
+
 import MenuOrder from './components/thirdPage/MenuOrder/MenuOrder';
 import RegisterForm from './components/registerForm/RegisterForm';
 import LogInForm from './components/loginForm/LoginForm';
@@ -40,7 +40,7 @@ function App() {
       <Route path='menus/:restaurantId' element={<MenuOrder/>}/>
       <Route path='orderForm' element={<DetailsForm/>}/>
       <Route path="orderDisplay/:orderId" element={<DisplayOrder/>}/>
-      <Route path='payment/:orderId' element={<PaymentMethod/>}/>
+      
       </Route>
       </Route>
       

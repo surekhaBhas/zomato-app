@@ -6,6 +6,7 @@ import axios from '../../Api/axios'
 import {BsFillTrashFill} from 'react-icons/bs';
 import './DisplayOrder.css';
 import {AiOutlineClose} from 'react-icons/ai'
+import PaymentMethod from '../thirdPage/paymentMethod/paymentMethod';
 
 function DisplayOrder() {
   
@@ -38,6 +39,7 @@ function DisplayOrder() {
       setPrice(cost)
    },[])  
 
+   
    useEffect(()=>{
      let count={}
      let menuArr=[]
@@ -51,6 +53,7 @@ function DisplayOrder() {
         }
        } 
     }
+
     setInDetailMenu(count)
    
      const getMenuDetails=async()=>{
@@ -78,7 +81,7 @@ function DisplayOrder() {
     try{
       const response=await axiosPrivate.put(`orders/${orderId}?cost=${price}&menuId=${menuItems}`)
       console.log(response)
-      navigate(`/payment/${orderId}?cost=${price}`)
+      
     }catch(err){
       console.log(err)
     }
@@ -117,8 +120,9 @@ function DisplayOrder() {
          {menuOrderData.length?<div className='bill' style={{marginTop:'auto'}}>
           <h1>Subtotal   </h1> 
           <h1>{price}</h1>
-          <button className='pay' onClick={updateOrders}>Proceed to Pay</button>
+          <button className='pay' onClick={updateOrders}>confirm</button>
           </div>:null}
+          <PaymentMethod orderId={orderId} amount={cost}/>
          </div>
     </div>
   )
